@@ -27,8 +27,8 @@ def clone_by_group_id(path='.', group_id = -1, per_page = 1):
 	for i in range(number_of_pages):
 		r = get('https://gitlab.com/api/v4/groups/{}/projects?per_page=100&include_subgroups=1&page={}'.format(group_id, i), headers=headers)
 		parsed = json.loads(r.text)
-		for i in parsed:
-			projects.append({"name": i["path"], "url": i["ssh_url_to_repo"]})
+		for j in parsed:
+			projects.append({"name": j["path"], "url": j["ssh_url_to_repo"]})
 
 	for i in projects:
 		os.system('mkdir {}/{} ; git clone {} {}/{} ;'.format(path, i["name"], i["url"], path, i["name"]))
